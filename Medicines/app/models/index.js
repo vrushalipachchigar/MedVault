@@ -11,5 +11,6 @@ db.mongoose = mongoose;
 db.url = dbConfig.url;
 
 db.medicines = require("./medicine.model.js")(mongoose);
+db.categories = require("./category.model.js")(mongoose);
 
 module.exports = db;

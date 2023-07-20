@@ -55,6 +55,7 @@ app.get("/", (req, res) => {
 
 require("./app/routes/medicine.routes")(app);
 require("./app/routes/category.routes")(app);
+require("./app/routes/order.routes")(app);
 
 // set port, listen for requests
 

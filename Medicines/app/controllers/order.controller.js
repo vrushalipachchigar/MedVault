@@ -1,9 +1,8 @@
 const db = require("../models");
 
-const Categories = db.categories;
+const Order = db.orders;
 
-// Create and Save a new Category
-
+// Create and Save a new Order
 exports.create = (req, res) => {
 
     // Validate request
@@ -16,19 +15,21 @@ exports.create = (req, res) => {
 
     }
 
-    // Create a Category
+    // Create a Order
 
-    const category = new Categories({
+    const order = new Order({
 
-        name: req.body.name
+        name: req.body.name,
+        quantity: req.body.quantity,
+        category: req.body.category
 
     });
 
-    // Save Category in the database
+    // Save Order in the database
 
-    Categories
+    Order
 
-        .create(category)
+        .create(order)
 
         .then(data => {
 
@@ -42,7 +43,7 @@ exports.create = (req, res) => {
 
                 message:
 
-                    err.message || "Some error occurred while creating the Category."
+                    err.message || "Some error occurred while creating the Order."
 
             });
 
@@ -50,7 +51,7 @@ exports.create = (req, res) => {
 
 };
 
-// Retrieve all Categories from the database.
+// Retrieve all Orders from the database.
 
 exports.findAll = (req, res) => {
 
@@ -58,9 +59,7 @@ exports.findAll = (req, res) => {
 
     var condition = name ? { name: { $regex: new RegExp(name), $options: "i" } } : {};
 
-    Categories
-
-        .find(condition)
+    Order.find(condition)
 
         .then(data => {
 
@@ -74,7 +73,7 @@ exports.findAll = (req, res) => {
 
                 message:
 
-                    err.message || "Some error occurred while retrieving categories."
+                    err.message || "Some error occurred while retrieving orders."
 
             });
 
@@ -82,21 +81,19 @@ exports.findAll = (req, res) => {
 
 };
 
-// Find a single Category with an id
+// Find a single Order with an id
 
 exports.findOne = (req, res) => {
 
     const id = req.params.id;
 
-    Categories
-
-        .findById(id)
+    Order.findById(id)
 
         .then(data => {
 
             if (!data)
 
-                res.status(404).send({ message: "Not found Category with id " + id });
+                res.status(404).send({ message: "Not found Order with id " + id });
 
             else res.send(data);
 
@@ -108,13 +105,13 @@ exports.findOne = (req, res) => {
 
                 .status(500)
 
-                .send({ message: "Error retrieving Category with id=" + id });
+                .send({ message: "Error retrieving Order with id=" + id });
 
         });
 
 };
 
-// Update a Category by the id in the request
+// Update a Order by the id in the request
 
 exports.update = (req, res) => {
 
@@ -130,7 +127,7 @@ exports.update = (req, res) => {
 
     const id = req.params.id;
 
-    Categories.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+    Order.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
 
         .then(data => {
 
@@ -138,33 +135,23 @@ exports.update = (req, res) => {
 
                 res.status(404).send({
 
-                    message: `Cannot update Category with id=${id}. Maybe Category was not found!`
+                    message: `Cannot update Order with id=${id}. Maybe Order was not found!`
 
                 });
 
-            } else res.send({ message: "Category was updated successfully." });
-
-        })
-
-        .catch(err => {
-
-            res.status(500).send({
-
-                message: "Error updating Category with id=" + id
-
-            });
+            } else res.send({ message: "Order was updated successfully." });
 
         });
 
 };
 
-// Delete a Category with the specified id in the request
+// Delete a Order with the specified id in the request
 
 exports.delete = (req, res) => {
 
     const id = req.params.id;
 
-    Categories.findByIdAndRemove(id)
+    Order.findByIdAndRemove(id)
 
         .then(data => {
 
@@ -172,7 +159,7 @@ exports.delete = (req, res) => {
 
                 res.status(404).send({
 
-                    message: `Cannot delete Category with id=${id}. Maybe Category was not found!`
+                    message: `Cannot delete Order with id=${id}. Maybe Order was not found!`
 
                 });
 
@@ -180,7 +167,7 @@ exports.delete = (req, res) => {
 
                 res.send({
 
-                    message: "Category was deleted successfully!"
+                    message: "Order was deleted successfully!"
 
                 });
 
@@ -192,7 +179,7 @@ exports.delete = (req, res) => {
 
             res.status(500).send({
 
-                message: "Could not delete Category with id=" + id
+                message: "Could not delete Order with id=" + id
 
             });
 
@@ -200,17 +187,17 @@ exports.delete = (req, res) => {
 
 };
 
-// Delete all Categories from the database.
+// Delete all Orders from the database.
 
 exports.deleteAll = (req, res) => {
 
-    Categories.deleteMany({})
+    Order.deleteMany({})
 
         .then(data => {
 
             res.send({
 
-                message: `${data.deletedCount} Categories were deleted successfully!`
+                message: `${data.deletedCount} Orders were deleted successfully!`
 
             });
 
@@ -222,7 +209,7 @@ exports.deleteAll = (req, res) => {
 
                 message:
 
-                    err.message || "Some error occurred while removing all categories."
+                    err.message || "Some error occurred while removing all orders."
 
             });
 

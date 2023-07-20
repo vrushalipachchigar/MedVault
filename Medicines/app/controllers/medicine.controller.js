@@ -229,28 +229,3 @@ exports.deleteAll = (req, res) => {
 
 };
 
-// Find all published Medicines
-
-exports.findAllPublished = (req, res) => {
-
-    Medicine.find({ published: true })
-
-        .then(data => {
-
-            res.send(data);
-
-        })
-
-        .catch(err => {
-
-            res.status(500).send({
-
-                message:
-
-                    err.message || "Some error occurred while retrieving medicines."
-
-            });
-
-        });
-
-};

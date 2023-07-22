@@ -8,6 +8,8 @@ import { AddMedicineComponent } from './components/add-medicine/add-medicine.com
 import { CreateOrderComponent } from './components/create-order/create-order.component';
 import { MedicineDetailsComponent } from './components/medicine-details/medicine-details.component';
 import { MedicineListComponent } from './components/medicine-list/medicine-list.component';
+import { OrderListComponent } from './components/order-list/order-list.component';
+import { OrderDetailsComponent } from './components/order-details/order-details.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { MedicineListComponent } from './components/medicine-list/medicine-list.
     AddMedicineComponent,
     CreateOrderComponent,
     MedicineDetailsComponent,
-    MedicineListComponent
+    MedicineListComponent,
+    OrderListComponent,
+    OrderDetailsComponent
   ],
   imports: [
     BrowserModule,
